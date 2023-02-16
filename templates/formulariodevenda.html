@@ -1,0 +1,159 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style2.css' %}">
+    <title>Formulário de Venda</title>
+    <script>
+        function updateCamposProduto() {
+            const quantidadeProdutos = document.getElementById('quantidade_produtos').value;
+
+            // Esconder todos os campos de produto
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById(`produto${i}`).style.display = 'none';
+                document.getElementById(`quantidade_vendida${i}`).style.display = 'none';
+            }
+
+            // Exibir os campos de produto selecionados
+            for (let i = 1; i <= quantidadeProdutos; i++) {
+                document.getElementById(`produto${i}`).style.display = 'block';
+                document.getElementById(`quantidade_vendida${i}`).style.display = 'block';
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-image">
+            <a href="{% url 'index' %}">
+                <img src="{% static 'images/undraw_receipt_re_fre3.svg' %}" alt="">
+            </a>
+        </div>
+
+        <div class="form">
+            <form action="{% url 'formulariodevenda' %}" method="POST" class="form-horizontal" autocomplete="off"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-header">
+                    <div class="title">
+                        <h1>Cadastrar Vendas</h1>
+                    </div>
+                    {% if form.errors %}
+                        <div class="alert alert-danger" role="alert">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                {{ error }}<br>
+                            {% endfor %}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                    <div class="input-group">
+                        <div class="input-box">
+                            <div class="select">
+                                <div class="quantidade-de-produtos">
+                                    <div class="quantidade-de-produtos-1">Quantidade de produtos vendidos:</div>
+                                    <div class="quantidade-de-produtos-1">
+                                        <select name="quantidade_produtos" id="quantidade_produtos" onchange="updateCamposProduto()">
+                                            <option value="">Selecione uma opção</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div id="camposAdicionais">
+                                        <div class="form-contratos" id="produto1" style="display: none">
+                                            <div class="comp-nota-1">Produto 1:</div>
+                                            <div class="comp-nota-1">{{form.produto}}</div>
+                                        </div>
+                                        <div class="tipo-de-faturamento" id="quantidade_vendida1" style="display: none">
+                                            <div class="tipo-de-faturamento-1">Quantidade Vendida 1:</div>
+                                            <div class="tipo-de-faturamento-1">{{form.quantidade_vendida}}</div>
+                                        </div>
+                                        <div class="cnpj-nota" id="produto2" style="display: none">
+                                            <div class="cnpj-nota-1">Produto 2:</div>
+                                            <div class="cnpj-nota-1">{{form.produto2}}</div>
+                                        </div>
+                                        <div class="cotratos" id="quantidade_vendida2" style="display: none">
+                                            <div class="cotratos-1">Quantidade Vendida 2:</div>
+                                            <div class="cotratos-1">{{form.quantidade_vendida2}}</div>
+                                        </div>
+                                        <div class="qtd-horas" id="produto3" style="display: none">
+                                            <div class="qtd-horas-1">Produto 3:</div>
+                                            <div class="qtd-horas-1">{{form.produto3}}</div>
+                                        </div>
+                                        <div class="cotratos" id="quantidade_vendida3" style="display: none">
+                                            <div class="cotratos-1">Quantidade Vendida 3:</div>
+                                            <div class="cotratos-1">{{form.quantidade_vendida3}}</div>
+                                        </div>
+                                        <div class="qtd-horas" id="produto4" style="display: none">
+                                            <div class="qtd-horas-1">Produto 4:</div>
+                                            <div class="qtd-horas-1">{{form.produto4}}</div>
+                                        </div>
+                                        <div class="cotratos" id="quantidade_vendida4" style="display: none">
+                                            <div class="cotratos-1">Quantidade Vendida 4:</div>
+                                            <div class="cotratos-1">{{form.quantidade_vendida4}}</div>
+                                        </div>
+                                        <div class="qtd-horas" id="produto5" style="display: none">
+                                            <div class="qtd-horas-1">Produto 5:</div>
+                                            <div class="qtd-horas-1">{{form.produto5}}</div>
+                                        </div>
+                                        <div class="cotratos" id="quantidade_vendida5" style="display: none">
+                                            <div class="cotratos-1">Quantidade Vendida 5:</div>
+                                            <div class="cotratos-1">{{form.quantidade_vendida5}}</div>
+                                        </div>
+                                        <div class="qtd-horas" id="produto6" style="display: none">
+                                            <div class="qtd-horas-1">Produto 6:</div>
+                                            <div class="qtd-horas-1">{{form.produto6}}</div>
+                                        </div>
+                                        <div class="cotratos" id="quantidade_vendida6" style="display: none">
+                                            <div class="cotratos-1">Quantidade Vendida 6:</div>
+                                            <div class="cotratos-1">{{form.quantidade_vendida6}}</div>
+                                        </div>
+                                        <div class="qtd-horas" id="produto7" style="display: none">
+                                            <div class="qtd-horas-1">Produto 7:</div>
+                                            <div class="qtd-horas-1">{{form.produto7}}</div>
+                                        </div>
+                                        <div class="cotratos" id="quantidade_vendida7" style="display: none">
+                                            <div class="cotratos-1">Quantidade Vendida 7:</div>
+                                            <div class="cotratos-1">{{form.quantidade_vendida7}}</div>
+                                        </div>
+                                        <div class="qtd-horas" id="produto8" style="display: none">
+                                            <div class="qtd-horas-1">Produto 8:</div>
+                                            <div class="qtd-horas-1">{{form.produto8}}</div>
+                                        </div>
+                                        <div class="cotratos" id="quantidade_vendida8" style="display: none">
+                                            <div class="cotratos-1">Quantidade Vendida 8:</div>
+                                            <div class="cotratos-1">{{form.quantidade_vendida8}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="login-button">
+                        <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

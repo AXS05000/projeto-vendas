@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap');
+
+
+ /*                                 Config da pag                                 */
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+/* .............................................................................. */
+
+
+
+ /*                                 Aqui é o fundo da pagina                                 */
+ body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #a726986d;
+}
+/* ........................................................................................ */
+
+
+
+
+ /*                           Aqui é o quadrado que segura as coisas dentro                */
+
+.container {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, .212);
+    }
+
+
+/* .................................................................................... */
+
+
+
+
+
+
+ /*               Isso aqui é configuração da imagem e colocando fundo                      */
+
+ .form-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #da36e2d4;
+    padding: 1rem;
+}
+
+.form-image img {
+    width: 31rem;
+}
+
+ /* .................................................................................... */
+
+ /*               Isso aqui é configuração da formulario na direita                      */
+
+/*Fundo, borda  e centralização do itens*/
+
+.form{
+    width: 50%;
+    height: 100%;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem;
+}
+
+
+
+/*Margem dos botões e distruibuição*/
+
+.form-header {
+    margin-bottom: 3rem;
+    display: inline-block;
+    justify-content: space-between;
+
+}
+
+/*Configuração de aparencia do botão Cadastrar*/
+
+.login-button {
+    
+    display: flex;
+    align-items: center;
+    padding-top: 35px;
+}
+
+.login-button button {
+    border: none;
+    background-color: #810cb3;
+    padding: 0.4rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button button:hover {
+    background-color: #aa3ad9;
+}
+
+.login-button button {
+    text-decoration: none;
+    font-weight: 500;
+    color: #fff;
+}   
+
+
+/*Texto Cadastrar Notas*/
+
+.form-header h1::after {
+    content: '';
+    display: block;
+    width: 5rem;
+    height: 0.3rem;
+    background-color: #810cb3;
+    margin: 0 auto;
+    position: absolute;
+    border-radius: 10px;
+}
+
+/*Distruibuição do itens no quadrado direito*/
+
+.input-group {
+
+    overflow-y: scroll;
+    flex-direction: column;
+    overflow-y: scroll;
+    flex-wrap: nowrap;
+    max-height: 24rem;
+    padding-right: 5rem;
+
+
+
+}
+
+.title {
+    padding-bottom: 55px;
+
+}
+
+/*As caixinhas do formulario*/
+
+.input-box {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1.1rem;
+    min-height: 24rem;
+    min-width: 25rem;
+}
+
+.input-box input {
+    margin: 0.6rem 0;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+}
+
+
+.input-box input:hover {
+    background-color: #eeeeee75;
+}
+
+.input-box input:focus-visible {
+    outline: 1px solid #aa3ad9;
+}
+
+.input-box label,
+.gender-title h6 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #000000c0;
+}
+
+.input-box input::placeholder {
+    color: #000000be;
+}
+
+
+ /* .................................................................................... */
+
+  
+ .select {
+
+    width: 50%;
+
+ }
+
+ .select select:focus-visible{
+
+    outline: 1px solid #aa3ad9;
+ }
+
+/*
+.select select option {
+    background: rgba(82, 76, 85, 0.273);
+    /*color: #fff;*/
+    /*background: #a62dd947;*/
+
+
+.select select{
+    
+    min-width: 25rem;
+
+    margin: 0.6rem 0;
+    padding: 0.65rem 1rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 6px #0000001c;
+
+
+
+
+}
+
+.form-contratos select{
+    width: 400px 
+}
+
+/*Preguiça*/
+
+
+@media screen and (max-width: 1330px) {
+    .form-image {
+        display: none;
+    }
+    .container {
+        width: 50%;
+    }
+    .form {
+        width: 100%;
+    }
+
+    
+}
+
+@media screen and (max-width: 1064px) {
+
+    .container {
+        width: 90%;
+        height: auto;
+    }
+
+    .input-group {
+        flex-direction: column;
+        overflow-y: scroll;
+        flex-wrap: nowrap;
+        max-height: 22rem;
+        padding-right: 5rem;
+    }
+
+    .form-contratos select{
+        width: 218px;
+    }
+
+
+
+}
+
+
+
+.alert-danger {
+    display: inline-block;
+    width: auto;
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 8px;
+    border: 2px solid #f5c6cb;
+    margin-top: 2px;
+    margin-bottom: 35px;
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    border-radius: 8px;
+  }
