@@ -248,13 +248,13 @@
                 <i class="material-icons opacity-10">weekend</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Total Vendido</p>
+                <p class="text-sm mb-0 text-capitalize">Total Vendido Mês</p>
                 <h4 class="mb-0">R$ {{ total_vendas_mes_atual|floatformat:2 }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+{{ percentual_vendas }}% </span>Semana passada</p>
+              <p class="mb-0"><span class="{% if percentual_vendas > 0 %}text-success{% else %}text-danger{% endif %} text-sm font-weight-bolder">{% if percentual_vendas > 0 %}+{% endif %}{{ percentual_vendas|floatformat:2 }}% </span>Do que mês passado</p>
             </div>
           </div>
         </div>
@@ -265,13 +265,13 @@
                 <i class="material-icons opacity-10">person</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Total de Lucro</p>
+                <p class="text-sm mb-0 text-capitalize">Total de Lucro Mês</p>
                 <h4 class="mb-0">R$ {{ total_lucro_mes_atual|floatformat:2 }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>No ultimo mês</p>
+              <p class="mb-0"><span class= "{% if percentual_vendas2 > 0 %}text-success{% else %}text-danger{% endif %} text-sm font-weight-bolder">{% if percentual_vendas2 > 0 %}+{% endif %}{{ percentual_vendas2|floatformat:2 }}% </span>Do que mês passado</p>
             </div>
           </div>
         </div>
@@ -288,7 +288,7 @@
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+              <p class="mb-0"><span class="{% if percentual_vendas_semana_anterior > 0 %}text-success{% else %}text-danger{% endif %} text-sm font-weight-bolder">{% if percentual_vendas_semana_anterior > 0 %}+{% endif %}{{ percentual_vendas_semana_anterior|floatformat:2 }}%</span> Do que semana passada</p>
             </div>
           </div>
         </div>
@@ -305,7 +305,7 @@
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>Do que ontem</p>
+              <p class="mb-0"><span class="{% if percentual_vendas_semana_anterior2 > 0 %}text-success{% else %}text-danger{% endif %} text-sm font-weight-bolder">{% if percentual_vendas_semana_anterior2 > 0 %}+{% endif %}{{ percentual_vendas_semana_anterior2|floatformat:2 }}% </span>Do que semana passada</p>
             </div>
           </div>
         </div>

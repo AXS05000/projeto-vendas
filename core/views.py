@@ -144,6 +144,41 @@ class DashListView(ListView):
                 (current_month_sales-last_month_sales)/last_month_sales*100, 2)
         context['percentual_vendas'] = percentual_vendas
 
+        # Porcentagem de vendas comparada com o mês anterior
+        last_month_sales2 = Venda.objects.filter(data_da_venda__month=timezone.now().month-1).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        current_month_sales2 = total_lucro_mes_atual
+        if last_month_sales2 == 0:
+            percentual_vendas2 = '-'
+        else:
+            percentual_vendas2 = round(
+                (current_month_sales2-last_month_sales2)/last_month_sales2*100, 2)
+        context['percentual_vendas2'] = percentual_vendas2
+
+        # Porcentagem de vendas comparada com a semana anterior
+        last_week_sales = Venda.objects.filter(data_da_venda__week=timezone.now().isocalendar()[1]-1).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        current_week_sales = total_vendas_semana_atual
+        if last_week_sales == 0:
+            percentual_vendas_semana_anterior = '-'
+        else:
+            percentual_vendas_semana_anterior = round(
+                (current_week_sales-last_week_sales)/last_week_sales*100, 2)
+        context['percentual_vendas_semana_anterior'] = percentual_vendas_semana_anterior
+
+        # Porcentagem de vendas comparada com a semana anterior 2
+        last_week_sales2 = Venda.objects.filter(data_da_venda__week=timezone.now().isocalendar()[1]-1).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        current_week_sales2 = total_lucro_semana_atual
+        if last_week_sales2 == 0:
+            percentual_vendas_semana_anterior2 = '-'
+        else:
+            percentual_vendas_semana_anterior2 = round(
+                (current_week_sales2-last_week_sales2)/last_week_sales2*100, 2)
+        context['percentual_vendas_semana_anterior2'] = percentual_vendas_semana_anterior2
+
         return context
 
 
