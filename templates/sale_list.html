@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+    <title>Lista de Vendas</title>
+</head>
+<body>
+    
+    <h1>Lista de Vendas</h1>
+
+    <h2>Total de vendas: {{ total_vendas|floatformat:2 }}</h2>
+    <h2>Total de Lucro: {{ total_de_lucros|floatformat:2 }}</h2>
+
+
+    <table>
+        <thead>
+            
+            <tr>
+                <th>Data da Venda</th>
+                <th>Quantidade Vendida</th>
+                <th>Produto</th>
+                <th>Valor Total da Venda</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in v %}
+            <tr>
+                <td>{{ sale.data_da_venda|date:"d/m/Y" }}</td>
+                <td>{{ sale.quantidade_vendida }}</td>
+                <td>{{ sale.produto.produto_em_estoque }}</td>
+                <td>R$ {{ sale.total_vendido|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'formulariodevenda' %}">Adicionar nova venda</a>
+    
+
+</body>
+</html>
+

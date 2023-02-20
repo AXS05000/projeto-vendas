@@ -47,3 +47,99 @@ class FormularioDeVendaCreateView(CreateView):
 
 def login(request):
     return render(request, 'login.html')
+
+
+class VendaListView(ListView):
+    model = Venda
+    template_name = 'sale_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        v = Venda.objects.all()
+
+        context['v'] = v
+
+        total_vendas = v.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).aggregate(total=Sum('total_value'))['total'] or 0
+
+        context['total_vendas'] = total_vendas
+
+        total_de_lucros = v.annotate(
+            total_lucro=Sum(
+                (F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                (F('produto__preco_de_compra') * F('quantidade_vendida')),
+                output_field=FloatField()
+            )
+        ).aggregate(total=Sum('total_lucro'))['total'] or 0
+
+        context['total_de_lucros'] = total_de_lucros
+
+        return context
+
+
+class DashListView(ListView):
+    model = Venda
+    template_name = 'pages/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        v2 = Venda.objects.all()
+
+        context['v2'] = v2
+
+        total_vendas2 = v2.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).aggregate(total=Sum('total_value'))['total'] or 0
+
+        context['total_vendas2'] = total_vendas2
+
+        total_de_lucros2 = v2.annotate(
+            total_lucro=Sum(
+                (F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                (F('produto__preco_de_compra') * F('quantidade_vendida')),
+                output_field=FloatField()
+            )
+        ).aggregate(total=Sum('total_lucro'))['total'] or 0
+
+        context['total_de_lucros2'] = total_de_lucros2
+
+        return context
+
+
+def tables(request):
+    return render(request, 'pages/tables.html')
+
+
+def billing(request):
+    return render(request, 'pages/billing.html')
+
+
+def virtual_reality(request):
+    return render(request, 'pages/virtual-reality.html')
+
+
+def rtl(request):
+    return render(request, 'pages/rtl.html')
+
+
+def notifications(request):
+    return render(request, 'pages/notifications.html')
+
+
+def profile(request):
+    return render(request, 'pages/profile.html')
+
+
+def sign_in(request):
+    return render(request, 'pages/sign-in.html')
+
+
+def sign_up(request):
+    return render(request, 'pages/sign-up.html')

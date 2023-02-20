@@ -79,3 +79,7 @@ class Venda(Base):
     @property
     def total_vendido(self):
         return self.produto.preco_de_venda * self.quantidade_vendida
+
+    @property
+    def total_lucro(self):
+        return (self.produto.preco_de_venda * self.quantidade_vendida) - (self.produto.preco_de_compra * self.quantidade_vendida)
