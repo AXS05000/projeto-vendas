@@ -133,6 +133,17 @@ class DashListView(ListView):
                       (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
         context['total_lucro_mes_atual'] = total_lucro_mes_atual
 
+        # Porcentagem de vendas comparada com o mês anterior
+        last_month_sales = Venda.objects.filter(data_da_venda__month=timezone.now().month-1).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        current_month_sales = total_vendas_mes_atual
+        if last_month_sales == 0:
+            percentual_vendas = '-'
+        else:
+            percentual_vendas = round(
+                (current_month_sales-last_month_sales)/last_month_sales*100, 2)
+        context['percentual_vendas'] = percentual_vendas
+
         return context
 
 
