@@ -13,7 +13,7 @@ class EstoqueAdmin(admin.ModelAdmin):
 
 @admin.register(Venda)
 class VendaAdmin(admin.ModelAdmin):
-    list_display = ('quantidade_vendida', 'produto', 'quantidade_vendida2',
+    list_display = ('data_da_venda', 'quantidade_vendida', 'produto', 'quantidade_vendida2',
                     'produto2', 'quantidade_vendida3', 'produto3', 'quantidade_vendida4',
                     'produto4', 'quantidade_vendida5', 'produto5', 'quantidade_vendida6',
                     'produto6', 'quantidade_vendida7', 'produto7', 'quantidade_vendida8',

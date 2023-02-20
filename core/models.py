@@ -71,7 +71,7 @@ class Venda(Base):
     )
 
     class Meta:
-        ordering = ['produto']
+        ordering = ['data_da_venda']
 
     def __str__(self):
         return f'{self.data_da_venda} - {self.quantidade_vendida} - {self.produto}'

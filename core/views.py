@@ -1,9 +1,10 @@
-import datetime
+from datetime import datetime
 
 from django import forms
 from django.contrib import messages
 from django.db.models import F, FloatField, Q, Sum
-from django.db.models.functions import ExtractMonth
+from django.db.models.functions import (ExtractMonth, ExtractWeekDay,
+                                        ExtractYear)
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
@@ -178,6 +179,90 @@ class DashListView(ListView):
             percentual_vendas_semana_anterior2 = round(
                 (current_week_sales2-last_week_sales2)/last_week_sales2*100, 2)
         context['percentual_vendas_semana_anterior2'] = percentual_vendas_semana_anterior2
+
+        # Total de Vendas Segunda Feira
+
+        segunda_feira_vendas = Venda.objects.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).filter(data_da_venda__week=timezone.now().isocalendar()[1], data_da_venda__week_day=2).aggregate(total=Sum('total_value'))['total'] or 0
+        context['segunda_feira_vendas'] = segunda_feira_vendas
+
+        # Total de Vendas Terça Feira
+
+        terca_feira_vendas = Venda.objects.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).filter(data_da_venda__week=timezone.now().isocalendar()[1], data_da_venda__week_day=3).aggregate(total=Sum('total_value'))['total'] or 0
+        context['terca_feira_vendas'] = terca_feira_vendas
+
+        # Total de Vendas Quarta Feira
+
+        quarta_feira_vendas = Venda.objects.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).filter(data_da_venda__week=timezone.now().isocalendar()[1], data_da_venda__week_day=4).aggregate(total=Sum('total_value'))['total'] or 0
+        context['quarta_feira_vendas'] = quarta_feira_vendas
+
+        # Total de Vendas Quinta Feira
+
+        quinta_feira_vendas = Venda.objects.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).filter(data_da_venda__week=timezone.now().isocalendar()[1], data_da_venda__week_day=5).aggregate(total=Sum('total_value'))['total'] or 0
+        context['quinta_feira_vendas'] = quinta_feira_vendas
+
+        # Total de Vendas Sexta Feira
+        sexta_feira_vendas = Venda.objects.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).filter(data_da_venda__week=timezone.now().isocalendar()[1], data_da_venda__week_day=6).aggregate(total=Sum('total_value'))['total'] or 0
+        context['sexta_feira_vendas'] = sexta_feira_vendas
+
+        # Total de Vendas Sabado
+        sabado_vendas = Venda.objects.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).filter(data_da_venda__week=timezone.now().isocalendar()[1], data_da_venda__week_day=7).aggregate(total=Sum('total_value'))['total'] or 0
+        context['sabado_vendas'] = sabado_vendas
+
+        # Total de Vendas Domingo
+        domingo_vendas = Venda.objects.annotate(
+            total_value=Sum(
+                F('produto__preco_de_venda') * F('quantidade_vendida'),
+                output_field=FloatField()
+            )
+        ).filter(data_da_venda__week=timezone.now().isocalendar()[1], data_da_venda__week_day=1).aggregate(total=Sum('total_value'))['total'] or 0
+        context['domingo_vendas'] = domingo_vendas
+
+        context['sales_data'] = [
+            segunda_feira_vendas,
+            terca_feira_vendas,
+            quarta_feira_vendas,
+            quinta_feira_vendas,
+            sexta_feira_vendas,
+            sabado_vendas,
+            domingo_vendas,
+        ]
+
+        mes = 1
+        ano = datetime.now().year
+
+        total_vendas_janeiro = Venda.objects.filter(data_da_venda__month=mes, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_janeiro'] = total_vendas_janeiro
 
         return context
 
