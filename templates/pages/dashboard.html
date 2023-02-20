@@ -249,7 +249,7 @@
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Total Vendido</p>
-                <h4 class="mb-0">R$ {{ total_vendas2|floatformat:2 }}</h4>
+                <h4 class="mb-0">R$ {{ total_vendas_mes_atual|floatformat:2 }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -266,7 +266,7 @@
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Total de Lucro</p>
-                <h4 class="mb-0">R$ {{ total_de_lucros2|floatformat:2 }}</h4>
+                <h4 class="mb-0">R$ {{ total_lucro_mes_atual|floatformat:2 }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -282,8 +282,8 @@
                 <i class="material-icons opacity-10">person</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Novos Clientes</p>
-                <h4 class="mb-0">3,462</h4>
+                <p class="text-sm mb-0 text-capitalize">Total Vendido Semana</p>
+                <h4 class="mb-0">R$ {{  total_vendas_semana_atual|floatformat:2 }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
@@ -299,8 +299,8 @@
                 <i class="material-icons opacity-10">weekend</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Vendas</p>
-                <h4 class="mb-0">R$103,430</h4>
+                <p class="text-sm mb-0 text-capitalize">Total Lucro Semana</p>
+                <h4 class="mb-0">R$ {{ total_lucro_semana_atual|floatformat:2 }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">

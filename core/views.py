@@ -3,8 +3,10 @@ import datetime
 from django import forms
 from django.contrib import messages
 from django.db.models import F, FloatField, Q, Sum
+from django.db.models.functions import ExtractMonth
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .forms import VendaModelForm
@@ -87,19 +89,19 @@ class DashListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Total de vendas
         v2 = Venda.objects.all()
-
         context['v2'] = v2
-
         total_vendas2 = v2.annotate(
             total_value=Sum(
                 F('produto__preco_de_venda') * F('quantidade_vendida'),
                 output_field=FloatField()
             )
         ).aggregate(total=Sum('total_value'))['total'] or 0
-
         context['total_vendas2'] = total_vendas2
 
+        # Total de lucros
         total_de_lucros2 = v2.annotate(
             total_lucro=Sum(
                 (F('produto__preco_de_venda') * F('quantidade_vendida')) -
@@ -107,8 +109,29 @@ class DashListView(ListView):
                 output_field=FloatField()
             )
         ).aggregate(total=Sum('total_lucro'))['total'] or 0
-
         context['total_de_lucros2'] = total_de_lucros2
+
+        # Total de vendas na semana atual
+        semana_atual = timezone.now().isocalendar()[
+            1]  # número da semana atual
+        total_vendas_semana_atual = v2.filter(data_da_venda__week=semana_atual).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_semana_atual'] = total_vendas_semana_atual
+
+        total_lucro_semana_atual = v2.filter(data_da_venda__week=semana_atual).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_lucro_semana_atual'] = total_lucro_semana_atual
+
+        mes_atual = timezone.now().month
+        total_vendas_mes_atual = v2.filter(data_da_venda__month=mes_atual).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_mes_atual'] = total_vendas_mes_atual
+
+        total_lucro_mes_atual = v2.filter(data_da_venda__month=mes_atual).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_lucro_mes_atual'] = total_lucro_mes_atual
 
         return context
 
