@@ -257,12 +257,145 @@ class DashListView(ListView):
             domingo_vendas,
         ]
 
-        mes = 1
         ano = datetime.now().year
 
-        total_vendas_janeiro = Venda.objects.filter(data_da_venda__month=mes, data_da_venda__year=ano).aggregate(
+        total_vendas_janeiro = Venda.objects.filter(data_da_venda__month=1, data_da_venda__year=ano).aggregate(
             total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
         context['total_vendas_janeiro'] = total_vendas_janeiro
+
+        total_vendas_fevereiro = Venda.objects.filter(data_da_venda__month=2, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_fevereiro'] = total_vendas_fevereiro
+
+        total_vendas_marco = Venda.objects.filter(data_da_venda__month=3, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_marco'] = total_vendas_marco
+
+        total_vendas_abril = Venda.objects.filter(data_da_venda__month=4, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_abril'] = total_vendas_abril
+
+        total_vendas_maio = Venda.objects.filter(data_da_venda__month=5, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_maio'] = total_vendas_maio
+
+        total_vendas_junho = Venda.objects.filter(data_da_venda__month=6, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_junho'] = total_vendas_junho
+
+        total_vendas_julho = Venda.objects.filter(data_da_venda__month=7, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_julho'] = total_vendas_julho
+
+        total_vendas_agosto = Venda.objects.filter(data_da_venda__month=8, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_agosto'] = total_vendas_agosto
+
+        total_vendas_setembro = Venda.objects.filter(data_da_venda__month=9, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_setembro'] = total_vendas_setembro
+
+        total_vendas_outubro = Venda.objects.filter(data_da_venda__month=10, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_outubro'] = total_vendas_outubro
+
+        total_vendas_novembro = Venda.objects.filter(data_da_venda__month=11, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_novembro'] = total_vendas_novembro
+
+        total_vendas_dezembro = Venda.objects.filter(data_da_venda__month=12, data_da_venda__year=ano).aggregate(
+            total=Sum(F('produto__preco_de_venda') * F('quantidade_vendida'), output_field=FloatField()))['total'] or 0
+        context['total_vendas_dezembro'] = total_vendas_dezembro
+
+        context['sales_data_months'] = [
+            total_vendas_janeiro,
+            total_vendas_fevereiro,
+            total_vendas_marco,
+            total_vendas_abril,
+            total_vendas_maio,
+            total_vendas_junho,
+            total_vendas_julho,
+            total_vendas_agosto,
+            total_vendas_setembro,
+            total_vendas_outubro,
+            total_vendas_novembro,
+            total_vendas_dezembro,
+        ]
+
+        total_vendas_lucro_janeiro = Venda.objects.filter(data_da_venda__month=1, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_janeiro'] = total_vendas_lucro_janeiro
+
+        total_vendas_lucro_fevereiro = Venda.objects.filter(data_da_venda__month=2, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_fevereiro'] = total_vendas_lucro_fevereiro
+
+        total_vendas_lucro_marco = Venda.objects.filter(data_da_venda__month=3, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_marco'] = total_vendas_lucro_marco
+
+        total_vendas_lucro_abril = Venda.objects.filter(data_da_venda__month=4, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_abril'] = total_vendas_lucro_abril
+
+        total_vendas_lucro_maio = Venda.objects.filter(data_da_venda__month=5, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_maio'] = total_vendas_lucro_maio
+
+        total_vendas_lucro_junho = Venda.objects.filter(data_da_venda__month=6, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_junho'] = total_vendas_lucro_junho
+
+        total_vendas_lucro_julho = Venda.objects.filter(data_da_venda__month=7, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_julho'] = total_vendas_lucro_julho
+
+        total_vendas_lucro_agosto = Venda.objects.filter(data_da_venda__month=8, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_agosto'] = total_vendas_lucro_agosto
+
+        total_vendas_lucro_setembro = Venda.objects.filter(data_da_venda__month=9, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_setembro'] = total_vendas_lucro_setembro
+
+        total_vendas_lucro_outubro = Venda.objects.filter(data_da_venda__month=10, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_outubro'] = total_vendas_lucro_outubro
+
+        total_vendas_lucro_novembro = Venda.objects.filter(data_da_venda__month=11, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_novembro'] = total_vendas_lucro_novembro
+
+        total_vendas_lucro_dezembro = Venda.objects.filter(data_da_venda__month=12, data_da_venda__year=ano).aggregate(
+            total=Sum((F('produto__preco_de_venda') * F('quantidade_vendida')) -
+                      (F('produto__preco_de_compra') * F('quantidade_vendida')), output_field=FloatField()))['total'] or 0
+        context['total_vendas_lucro_dezembro'] = total_vendas_lucro_dezembro
+
+        context['sales_data_months_2'] = [
+            total_vendas_lucro_janeiro,
+            total_vendas_lucro_fevereiro,
+            total_vendas_lucro_marco,
+            total_vendas_lucro_abril,
+            total_vendas_lucro_maio,
+            total_vendas_lucro_junho,
+            total_vendas_lucro_julho,
+            total_vendas_lucro_agosto,
+            total_vendas_lucro_setembro,
+            total_vendas_lucro_outubro,
+            total_vendas_lucro_novembro,
+            total_vendas_lucro_dezembro,
+        ]
 
         return context
 
