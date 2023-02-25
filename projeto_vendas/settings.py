@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'core',
+    'usuarios',
+
 ]
 
 MIDDLEWARE = [
@@ -55,7 +57,9 @@ ROOT_URLCONF = 'projeto_vendas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,7 +81,7 @@ WSGI_APPLICATION = 'projeto_vendas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'BANCO_TESTE_04',
+        'NAME': 'BANCO_TESTE_05',
         'USER': 'sa',
         'PASSWORD': 'Fizz2241',
         'HOST': 'localhost',
@@ -128,7 +132,18 @@ STATIC_ROOT = BASE_DIR / 'staticfiles/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTH_USER_MODEL = 'usuarios.CustomUsuario'
+
+
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'

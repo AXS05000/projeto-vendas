@@ -2,22 +2,22 @@ from datetime import datetime
 
 from django import forms
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import F, FloatField, Q, Sum
 from django.db.models.functions import (ExtractMonth, ExtractWeekDay,
                                         ExtractYear)
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.utils.decorators import method_decorator
+from django.views.generic import (CreateView, DeleteView, ListView,
+                                  TemplateView, UpdateView)
 
 from .forms import VendaModelForm
 from .models import Estoque, Venda
 
 
-def index(request):
-    return render(request, 'index.html')
-
-
+@method_decorator(login_required, name='dispatch')
 class FormularioDeVendaCreateView(CreateView):
     model = Venda
     form_class = VendaModelForm
@@ -52,6 +52,7 @@ def login(request):
     return render(request, 'login.html')
 
 
+@method_decorator(login_required, name='dispatch')
 class VendaListView(ListView):
     model = Venda
     template_name = 'sale_list.html'
@@ -84,6 +85,7 @@ class VendaListView(ListView):
         return context
 
 
+@method_decorator(login_required, name='dispatch')
 class DashListView(ListView):
     model = Venda
     template_name = 'pages/dashboard.html'
@@ -400,33 +402,41 @@ class DashListView(ListView):
         return context
 
 
+@login_required
 def tables(request):
     return render(request, 'pages/tables.html')
 
 
+@login_required
 def billing(request):
     return render(request, 'pages/billing.html')
 
 
+@login_required
 def virtual_reality(request):
     return render(request, 'pages/virtual-reality.html')
 
 
+@login_required
 def rtl(request):
     return render(request, 'pages/rtl.html')
 
 
+@login_required
 def notifications(request):
     return render(request, 'pages/notifications.html')
 
 
+@login_required
 def profile(request):
     return render(request, 'pages/profile.html')
 
 
+@login_required
 def sign_in(request):
     return render(request, 'pages/sign-in.html')
 
 
+@login_required
 def sign_up(request):
     return render(request, 'pages/sign-up.html')
