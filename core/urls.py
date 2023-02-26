@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (DashListView, FormularioDeVendaCreateView, VendaListView,
-                    billing, notifications, profile, rtl, tables,
+                    billing, notifications, profile, rtl, sign_in, tables,
                     virtual_reality)
 
 urlpatterns = [
@@ -16,6 +16,7 @@ urlpatterns = [
     path('rtl/', rtl, name='rtl'),
     path('notifications/', notifications, name='notifications'),
     path('profile/', profile, name='profile'),
+    path('sign_in/', sign_in, name='sign_in'),
 
 
 
