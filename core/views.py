@@ -408,18 +408,8 @@ def tables(request):
 
 
 @login_required
-def billing(request):
-    return render(request, 'pages/billing.html')
-
-
-@login_required
-def virtual_reality(request):
-    return render(request, 'pages/virtual-reality.html')
-
-
-@login_required
-def rtl(request):
-    return render(request, 'pages/rtl.html')
+def extrato(request):
+    return render(request, 'pages/extrato.html')
 
 
 @login_required
