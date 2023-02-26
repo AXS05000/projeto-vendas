@@ -20234,7 +20234,7 @@ fieldset:disabled .btn {
 }
 
 .alert-danger {
-  background-image: linear-gradient(195deg, #EF5350 0%, #E53935 100%);
+  background-image: linear-gradient(195deg, #e32044 0%,  #e32044 100%);
 }
 
 .alert-light {
@@ -27706,4 +27706,93 @@ pre[class*="language-"] {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*# sourceMappingURL=dashboard-free.css.map */
+
+
+
+.close:not(:disabled):not(.disabled) {
+  cursor: pointer;
+}
+.alert-dismissible .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem 1.5rem;
+  color: inherit;
+}
+button.close {
+  background-color: transparent;
+  border: 0;
+}
+
+.close {
+  float: right;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+  text-shadow: none;
+}
+/*
+.alert-dismissible .close {
+  top: 50%;
+  right: 1.5rem;
+  padding: 0;
+  transform: translateY(-50%);
+  color: hsla(0,0%,100%,.6);
+  opacity: 1;
+}
+
+
+
+[type=reset], [type=submit], button, html [type=button] {
+  -webkit-appearance: button;
+}
+.close, .close>span:not(.sr-only) {
+  transition: all .15s ease;
+}
+
+button, select {
+  text-transform: none;
+}
+button, input {
+  overflow: visible;
+}
+
+button {
+  border-radius: 0;
+}
+
+user agent stylesheet
+button {
+  writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-indent: 0px;
+  display: inline-block;
+  text-align: center;
+
+}
+*/
