@@ -1,15 +1,16 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 from django.shortcuts import render
 
 from .forms import CustomUsuarioCreateForm, LoginForm
 
 
-@login_required
-def index(request):
-    return render(request, 'index.html')
+class CustomLoginView(LoginView):
+    template_name = 'registration/login.html'
+    redirect_field_name = 'ne'
 
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
         form_login = LoginForm(request.POST)
         form_cadastro = CustomUsuarioCreateForm(request.POST)
@@ -22,4 +23,9 @@ def login(request):
     else:
         form_login = LoginForm()
         form_cadastro = CustomUsuarioCreateForm()
-    return render(request, 'login.html', {'form_login': form_login, 'form_cadastro': form_cadastro})
+    return CustomLoginView.as_view()(request, **{'form': form_login})
+
+
+@login_required(login_url='/login/')
+def index(request):
+    return render(request, 'index.html')

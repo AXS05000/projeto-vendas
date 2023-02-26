@@ -78,6 +78,7 @@ WSGI_APPLICATION = 'projeto_vendas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
@@ -87,7 +88,8 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '1433',
         'OPTIONS': {
-            'driver': 'ODBC Driver 17 for SQL Server'
+            'driver': 'ODBC Driver 17 for SQL Server',
+            'extra_params': 'TimeZone=America/Sao_Paulo',
         },
     }
 }
@@ -147,3 +149,4 @@ AUTH_USER_MODEL = 'usuarios.CustomUsuario'
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'
+LOGIN_URL = 'login'

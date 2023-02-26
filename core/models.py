@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import signals
+from django.utils import timezone
 
 
 class Base(models.Model):
@@ -28,7 +29,7 @@ class Estoque(Base):
 
 
 class Venda(Base):
-    data_da_venda = models.DateTimeField(auto_now_add=True)
+    data_da_venda = models.DateTimeField(default=timezone.now)
     quantidade_vendida = models.DecimalField(
         'Quantidade Vendida', max_digits=18, decimal_places=0, null=True, blank=True)
     produto = models.ForeignKey(
