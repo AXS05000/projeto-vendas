@@ -18,7 +18,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('index')
+            return redirect('dashboard')
         else:
             messages.error(request, 'Email ou senha incorretos')
     return render(request, 'registration/login.html', {'error': messages.get_messages(request)})
