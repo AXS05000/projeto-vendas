@@ -3,6 +3,7 @@ from datetime import datetime
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import PageNotAnInteger, Paginator
 from django.db.models import F, FloatField, Q, Sum
 from django.db.models.functions import (ExtractMonth, ExtractWeekDay,
                                         ExtractYear)
@@ -12,6 +13,7 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.generic import (CreateView, DeleteView, ListView,
                                   TemplateView, UpdateView)
+from django.views.generic.list import MultipleObjectMixin
 
 from .forms import VendaModelForm
 from .models import Estoque, Venda
@@ -89,9 +91,19 @@ class VendaListView(ListView):
 class DashListView(ListView):
     model = Venda
     template_name = 'pages/dashboard.html'
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        paginator = Paginator(self.object_list, self.paginate_by)
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        context = super().get_context_data(**kwargs)
+        context['page_obj'] = page_obj
 
         # Total de vendas
         v2 = Venda.objects.all()
