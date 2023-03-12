@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'projeto_vendas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'BANCO_TESTE_05',
+        'NAME': 'BANCO_TESTE_10',
         'USER': 'sa',
         'PASSWORD': 'Fizz2241',
         'HOST': 'localhost',
