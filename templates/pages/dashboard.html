@@ -303,8 +303,8 @@
                             <span class="text-secondary text-xs font-weight-bold">{{ sale.data_da_venda|date:"d/m/Y" }}</span>
                           </td>
                           <td class="align-middle">
-                            <a href="javascript:;" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                              Edit
+                            <a href="{% url 'vendadelete' sale.id %}" class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
+                              Excluir Venda
                             </a>
                           </td>
                         </tr>
@@ -344,8 +344,8 @@
                   </span>
       
                   {% if page_obj.has_next %}
-                  <a href="?page={{ page_obj.next_page_number }}">próxima &rsaquo;</a>
-                  <a href="?page={{ page_obj.paginator.num_pages }}">última &raquo;</a>
+                  <a href="?page={{ page_obj.next_page_number }}">Próxima &rsaquo;</a>
+                  <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
                   {% endif %}
               </span>
           </div>

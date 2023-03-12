@@ -3,11 +3,12 @@ from datetime import datetime
 from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import PageNotAnInteger, Paginator
 from django.db.models import F, FloatField, Q, Sum
 from django.db.models.functions import (ExtractMonth, ExtractWeekDay,
                                         ExtractYear)
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.utils.decorators import method_decorator
@@ -96,6 +97,9 @@ class DashListView(ListView):
     def get(self, request, *args, **kwargs):
         self.object_list = self.get_queryset()
         return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return super().get_queryset().order_by('-data_da_venda')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -412,6 +416,16 @@ class DashListView(ListView):
         ]
 
         return context
+
+
+class VendaDeleteView(LoginRequiredMixin, DeleteView):
+    model = Venda
+    template_name = 'pages/venda_confirm_delete.html'
+    success_url = reverse_lazy('dashboard')
+
+    def get_object(self, queryset=None):
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(Venda, pk=pk)
 
 
 @login_required

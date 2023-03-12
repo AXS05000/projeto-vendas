@@ -75,7 +75,8 @@ class Venda(Base):
         ordering = ['data_da_venda']
 
     def __str__(self):
-        return f'{self.data_da_venda} - {self.quantidade_vendida} - {self.produto}'
+        data_formatada = self.data_da_venda.strftime('%d/%m/%Y')
+        return f'{data_formatada} - {self.quantidade_vendida} - {self.produto}'
 
     @property
     def total_vendido(self):
